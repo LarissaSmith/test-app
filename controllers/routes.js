@@ -5,14 +5,12 @@ module.exports = function(app) {
     layout: "layout/layout-skills"
   });
   */
-  
-  app.get('/zpage', function(req, res){
+
+  app.get('/:page', function(req, res){
     res.render(req.params.page, {});
   });
   app.get('/', function(req, res){
-    res.render("index", {});
+    res.render("index", {layout:'layout/layout-angello', columnObj : ['newRow.name', 'newRow.total', 'newRow.modifier']});
   });
-  app.get('/blank', function(req, res){
-    res.render("voila");
-  });
+
 }

@@ -1,14 +1,25 @@
 <% page = { 'title' : 'PAGE_TITLE', 'key': 'INDEX_PAGE_NAME'} %>
-<% assets = { 'css' : [], 'js' : [] } %>
+<% assets = { 'css' : ["fileEditor.css"], 'js' : ["fileEditor.js"] } %>
 <div id="main" class="experiments">
   <div class="no-layout">
-    <h1 class="font21 serif"><%- t('welcome_title')%></h1>
     <section class="basic">
-      <p>
-        <%- t('welcome_message')%> <img src="<%= img('icon/arrow_left_white_11x11.png') %>" alt="">
-      </p>
-
-      <a href="sample" class="btn btn-water"><%- t('sample_link')%></a>
+      <div class="fileEditor" data-ng-controller="fileEditor">
+        <table class="editorTable">
+          <th class="editorData" data-ng-repeat="title in columnTitles">{{title}}</th>
+          <tr class="editorRow" data-ng-repeat="row in rows | filter:newRow.name">
+            <td class="editorData" data-ng-repeat="column in row.columns | orderBy:column">
+              {{column}}
+            </td>
+          </tr>
+          <tr class="editorRow">
+          <% for (var i = 0; i < columnObj.length; ++i) { %>
+            <td class="editorData">
+                <input type="text" data-ng-model="<%- columnObj[i] %>">
+            </td>
+          <% } %>
+          </tr>
+        </table>
+      </div>
     </section>
   </div>
 </div>

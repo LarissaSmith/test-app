@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <title><%= page.title %> &#8212; Skills</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+
+  <% if(typeof assets != "undefined" && assets.css) { %>
+    <% for(var filename in assets.css) { %>
+      <%- css(assets.css[filename]) %>
+    <% } %>
+  <% } %>
+
+</head>
+<body>
+   <%- body %>
+</body>
+
+  <% if(process.env.NODE_ENV == "production") { %>
+    <%- js('clientManifest.js') %>
+  <% } %>
+
+  <% if(typeof assets != "undefined"  && assets.js) { %>
+    <% for(var i=0, l=assets.js.length; i<l; i++) { %>
+      <%- js(assets.js[i]) %>
+    <% } %>
+  <% } %>
+
+</html>
