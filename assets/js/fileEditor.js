@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp', []);
-myApp.controller('fileEditor', function ($scope) {
+function fileCtrl($scope) {
   $scope.rows = [
     {columns:['Strength', '14', '+2']},
     {columns:['Intelligence', '14', '+2']},
@@ -10,7 +10,22 @@ myApp.controller('fileEditor', function ($scope) {
   ];
   $scope.columnTitles = ['Name', 'Total', 'Modifier'];
   $scope.addRow = function() {
-    console.log($scope);
-    $scope.rows.push([$scope.newRow.name, $scope.newRow.total, $scope.newRow.modifier]);
+    $scope.rows.push({columns:[$scope.newRow.name, $scope.newRow.total, $scope.newRow.modifier]});
   };
-});
+  $scope.editRow = function() {
+    for (var i = 0; i < $scope.rows.length; ++i) {
+      if ($scope.rows[i].$$hashKey === $scope.filteredRows[0].$$hashKey) {
+        $scope.rows[i] = {columns:[$scope.newRow.name, $scope.newRow.total, $scope.newRow.modifier]};
+      }
+    }
+  };
+  $scope.deleteRow = function() {
+    for (var i = 0; i < $scope.rows.length; ++i) {
+      if ($scope.rows[i].$$hashKey === $scope.filteredRows[0].$$hashKey) {
+        $scope.rows.splice(i, 1);
+      }
+    }
+  }
+}
+fileCtrl.$inject = ['$scope'];
+myApp.controller('fileEditor', fileCtrl);

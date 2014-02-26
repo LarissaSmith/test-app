@@ -6,7 +6,7 @@
       <div class="fileEditor" data-ng-controller="fileEditor">
         <table class="editorTable">
           <th class="editorData" data-ng-repeat="title in columnTitles">{{title}}</th>
-          <tr class="editorRow" data-ng-repeat="row in rows | filter:newRow.name">
+          <tr class="editorRow" data-ng-repeat="row in (filteredRows = (rows | filter:newRow.name))">
             <td class="editorData" data-ng-repeat="column in row.columns | orderBy:column">
               {{column}}
             </td>
@@ -19,6 +19,12 @@
           <% } %>
           </tr>
         </table>
+        <div class = "buttons">
+          <button class="add" data-ng-click="addRow()">Add</button>
+          <button class="edit" data-ng-click="editRow()">Edit</button>
+          <button class="delete" data-ng-click="deleteRow()">Delete</button>
+          <button class="roll">Roll</button>
+        </div>
       </div>
     </section>
   </div>
